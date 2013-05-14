@@ -1,11 +1,10 @@
-
 Copycat - A PHP Scrapping Class
 =====================
 
-You may find more info on gidlov.com/copycat
+You *may* find more info on [gidlov.com/copycat][1]
 
 ## Yet another scrapping class ##
-I didn’t do much research before I wrote this class, so there is probably something similar out there, and certainly some more capable solution. A Python version of this class is under development.
+I didn’t do much research before I wrote this class, so there is probably something similar out there, and certainly some more decent solution. _A Python version of this class is under development_.
 
 But still, I needed a class that could pick out selected pieces from a web page, with regular expression, show or save it. I also needed to be able to save files and or pictures, and also specify or complete a current file name.
 
@@ -22,7 +21,7 @@ It is also possible to use a search engine to look up an address to extract data
 
 ## How to use this class ##
 
-Include the class and initiate your object with some custom [cURL parameters][1], if you need/like.
+Include the class and initiate your object with some custom [cURL parameters][2], if you need/like.
 ```php
 require_once('copycat.class.php');
 $cc = new Copycat;
@@ -34,9 +33,9 @@ $cc->setCURL(array(
 ));
 ```
 
-**I use [IMDb][2] as our target source in these examples.**
+**I use [IMDb][3] as our target source in these examples.**
 
-Say we want to retrieve a particular film score, for simplicity, we happen to know the address of this very film, [Donnie Darko][3]. This is how the code could look like.
+Say we want to retrieve a particular film score, for simplicity, we happen to know the address of this very film, [Donnie Darko][4]. This is how the code could look like.
 
 ```php
 $cc->match(array(
@@ -66,7 +65,7 @@ Array (
 
 Also note that I’m using **method chaining**, it is supported, but it’s a matter of taste.
 
-But it’s unlikely that we know or can guess IMDb’s choice of URL for a particular movie, so we’ll Binging *(Google tends to interrupt the sequence after an unknown number of inquiries, therefore I chose Bing)* it when we don’t know it.
+But it’s unlikely that we know or can guess IMDb’s choice of URL for a particular movie, so we’ll Binging it when we don’t know it *(Google tends to interrupt the sequence after an unknown number of inquiries, therefore I chose Bing)*.
 
 ```php
 $cc->match(array(
@@ -175,18 +174,19 @@ $result = $cc->get();
 
 ##Drawbacks##
 
-...
+PHP itself is not suitable for long time-consuming operations, since the process is interrupted as soon as the user closes the web page, or when PHP's time limit is reached *(however `set_time_limit(0)` is utilized in the construct method so right there should not be a problem)*.
 
 ##Requirements##
 
- - PHP
- - cURL
+ - PHP 5
+ - cURL extension
 
 ##License##
 
-Copycat is released under [LGPL][4].
+Copycat is released under [LGPL][5].
 
-  [1]: http://php.net/manual/en/function.curl-setopt.php
-  [2]: http://imdb.com/
-  [3]: http://www.imdb.com/title/tt0246578/
-  [4]: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+  [1]: http://gidlov.com/copycat
+  [2]: http://php.net/manual/en/function.curl-setopt.php
+  [3]: http://imdb.com/
+  [4]: http://www.imdb.com/title/tt0246578/
+  [5]: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
