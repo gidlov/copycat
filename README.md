@@ -3,6 +3,20 @@ Copycat - A PHP Scrapping Class
 
 You *may* find more info on [gidlov.com/copycat][1]
 
+###For Laravel Developers###
+
+To install Copycat from the base of your laravel project, just type:
+
+```
+php artisan bundle:install copycat
+```
+
+And to activate the bundle, simply add this in your application/bundles.php:
+
+```
+'copycat' => array('auto' => true),
+```
+
 ## Yet another scrapping class ##
 I didn’t do much research before I wrote this class, so there is probably something similar out there, and certainly some more decent solution. _A Python version of this class is under development_.
 
