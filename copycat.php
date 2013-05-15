@@ -142,10 +142,18 @@ class Copycat {
 		return $this;
 	}
 
+	/**
+	* 
+	* 
+	*/
 	protected function _setHTML($url) {
 		$this->_html = $this->_getCURL($url);
 	}
 
+	/**
+	* 
+	* 
+	*/
 	protected function _getURLs() {
 		if ($this->_fill_urls) {
 			$this->_getFillURLs();
