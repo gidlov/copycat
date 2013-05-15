@@ -1,5 +1,5 @@
 <?php
-require_once('../copycat.class.php');
+require_once('../copycat.php');
 
 $cc = new Copycat;
 $cc->setCURL(array(

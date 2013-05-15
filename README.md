@@ -37,7 +37,7 @@ It is also possible to use a search engine to look up an address to extract data
 
 Include the class and initiate your object with some custom [cURL parameters][2], if you need/like.
 ```php
-require_once('copycat.class.php');
+require_once('copycat.php');
 $cc = new Copycat;
 $cc->setCURL(array(
   CURLOPT_RETURNTRANSFER => 1,
