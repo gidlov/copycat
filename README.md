@@ -1,4 +1,4 @@
-Copycat - A PHP Scrapping Class
+Copycat - A PHP Scraping Class
 =====================
 
 You *may* find more info on [gidlov.com/copycat][1]
@@ -17,7 +17,7 @@ And to activate the bundle, simply add this in your application/bundles.php:
 'copycat' => array('auto' => true),
 ```
 
-## Yet another scrapping class ##
+## Yet another scraping class ##
 I didn’t do much research before I wrote this class, so there is probably something similar out there, and certainly some more decent solution. _A Python version of this class is under development_.
 
 But still, I needed a class that could pick out selected pieces from a web page, with regular expression, show or save it. I also needed to be able to save files and or pictures, and also specify or complete a current file name.
