@@ -1,4 +1,5 @@
-<?php
+<?php use Copycat\Copycat;
+
 require_once('../copycat.php');
 
 $cc = new Copycat;

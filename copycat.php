@@ -1,15 +1,14 @@
-<?php
+<?php namespace Copycat;
 /**
-* This is a content thief to extract data from web pages.
+* A universal scraping tool that can be used for all kinds of data collection.
 * 
-* This is a tool to extract text, data and images. You can select one or a number of pages 
-* to allow it to work with or let it search itself through a search engine and extract selected parts.
+* You decide from where and what you want. All with regular expression.
+* Read more on Github.
 * 
 * @author 	Klas Gidlöv
 * @link 		gidlov.com/code/copycat
 * @license	LGPL 3.0
-* @version 	0.013
-*
+* @version 	0.0131
 */
 class Copycat {
 
