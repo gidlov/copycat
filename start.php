@@ -1,5 +1,7 @@
 <?php
 
-Autoloader::map(array(
-	'Copycat'	=> __DIR__ . DS . 'copycat.php'
+Autoloader::namespaces(array(
+	'Copycat' => Bundle::path('copycat'),
 ));
+
+Autoloader::alias('Copycat\\Copycat', 'Copycat');
