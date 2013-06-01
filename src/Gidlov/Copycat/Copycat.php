@@ -1,4 +1,4 @@
-<?php namespace Copycat;
+<?php namespace Gidlov\Copycat;
 /**
 * A universal scraping tool that can be used for all kinds of data collection.
 * 

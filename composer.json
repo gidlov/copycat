@@ -1,6 +1,24 @@
 {
-	"name": "gidlov/copycat",
-	"require": {
-		"php": ">=5.3.0"
-	}
+    "name": "gidlov/copycat",
+    "description": "A universal scraping tool that can be used for all kinds of data collection. You can decide from where and what you want. All with regular expression. More info on the Github page.",
+    "keywords": ["scraping", "scrape", "imdb", "laravel"],
+    "homepage": "http://github.com/gidlov/copycat",
+    "license": "LGPL",
+    "authors": [
+        {
+            "name": "Klas Gidlöv",
+            "email": "info@gidlov.com",
+            "homepage": "http://gidlov.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Gidlov\\Copycat": "src/"
+        }
+    },
+    "minimum-stability": "dev"
 }
