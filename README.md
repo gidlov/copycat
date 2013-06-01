@@ -3,18 +3,26 @@ Copycat - A PHP Scraping Class
 
 You *may* find more info on [gidlov.com/copycat][1]
 
-###For Laravel Developers###
+###For Laravel 4 Developers###
 
-To install Copycat from the base of your laravel project, just type:
-
-```
-php artisan bundle:install copycat
-```
-
-And to activate the bundle, simply add this in your application/bundles.php:
+In the `require` key of `composer.json` file add the following:
 
 ```
-'copycat' => array('auto' => true),
+"gidlov/copycat": "dev-master"
+```
+
+Run the Composer `update comand`.
+
+Add to `providers` in `app/config/app.php`.
+
+```
+'Gidlov\Copycat\CopycatServiceProvider',
+```
+
+and to `aliases` in the same file.
+
+```
+'Copycat' 		=> 'Gidlov\Copycat\Copycat',
 ```
 
 ## Yet another scraping class ##
