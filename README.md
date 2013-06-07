@@ -55,6 +55,19 @@ $cc->setCURL(array(
 ));
 ```
 
+### Protected pages? ###
+If you need access to one/several protected pages by example enter a username and password, it is easily solved with a few special CURL parameters.
+```
+  CURLOPT_URL => 'http://securedomain.com/login.php'
+  CURLOPT_POSTFIELDS => 'username=admin&password=secret'
+  CURLOPT_POST => 1;
+  CURLOPT_FOLLOWLOCATION => 1;
+  CURLOPT_COOKIEJAR => 'cookie.txt'
+```
+...Should do it.
+
+`CURLOPT_URL` is where the login form is found and `CURLOPT_POSTFIELDS` is form names and your authentication credentials.
+
 **I use [IMDb][3] as our target source in these examples.**
 
 Say we want to retrieve a particular film score, for simplicity, we happen to know the address of this very film, [Donnie Darko][4]. This is how the code could look like.
