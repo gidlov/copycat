@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Copycat - A PHP Scraping Class
 =====================
 
