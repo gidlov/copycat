@@ -349,7 +349,7 @@ class Copycat {
 		if (@preg_match_all($regex, $content, $matches) === false) {
 			return false;
 		}
-		$result = $matches[$i];
+		$result = $matches;
 		if ($this->_callback) {
 			foreach ($this->_callback as $filter) {
 				$result = array_map($filter, $result);
