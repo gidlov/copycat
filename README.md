@@ -440,4 +440,4 @@ Copycat is released under [LGPL][5].
   [3]: http://imdb.com/
   [4]: http://www.imdb.com/title/tt0246578/
   [5]: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
->>>>>>> 01833ba1f61d2ab3f7b60d1f60088df0ecd3c7c8
+
