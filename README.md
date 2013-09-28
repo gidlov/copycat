@@ -207,7 +207,7 @@ PHP itself is not suitable for long time-consuming operations, since the process
 
 Copycat is released under [LGPL][5].
 
-![T](http//gidlov.com/github/copycat)
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/bc4145a8dea081add9743f8ac44a2d51 "githalytics.com")](http://githalytics.com/gidlov/copycat)
 
   [1]: http://gidlov.com/copycat
   [2]: http://php.net/manual/en/function.curl-setopt.php
