@@ -189,10 +189,33 @@ Array (
 Apply your callback functions on all value items and view the results.
 
 ```php
-  ->callback(array('trim'));
+  ->callback(array(
+    '_all_' => array('trim'
+    ),
+  );
  
 $result = $cc->get();
 ```
+
+To apply functions on selected elements, replace `_all_` with your key value, like this: 
+
+```php
+  ->callback(array(
+    '_all_' => array('trim'),
+    'title' => array(
+      function($string) {
+        return str_replace(' ', '_', $string);
+      },
+    ),
+    'actors' => array(
+      function($string) {
+        return $string.', ';
+      },
+    ),
+  ));
+```
+
+Note that it is fine to use **anonymous functions** too.
 
 ##Drawbacks##
 

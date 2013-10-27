@@ -8,7 +8,7 @@
 * @author 	Klas Gidlöv
 * @link 		gidlov.com/code/copycat
 * @license	LGPL 3.0
-* @version 	0.0133
+* @version 	0.014
 */
 class Copycat {
 
@@ -242,9 +242,9 @@ class Copycat {
 	protected function _getMatch($key = 0) {
 		foreach ($this->_regex['match'] as $name => $regex) {
 			if (is_array($regex)) {
-				$this->_setFile($name, $regex, $key);
+				$this->_setFile($name, $regex, $key, 1, $name);
 			} else {
-				$match = $this->_filter($regex, $this->_html);
+				$match = $this->_filter($regex, $this->_html, 1, $name);
 				$this->_output[$key][$name] = $match;
 			}
 		}
@@ -260,7 +260,7 @@ class Copycat {
 			if (is_array($regex)) {
 				$this->_setFile($name, $regex, $key);
 			} else {
-				$match = $this->_filterAll($regex, $this->_html);
+				$match = $this->_filterAll($regex, $this->_html, 1, $name);
 				$this->_output[$key][$name] = $match;
 			}
 		}
@@ -286,7 +286,7 @@ class Copycat {
 		$before_value = isset($var['before_value']) ? $var['before_value'] : '';
 		$after_value = isset($var['after_value']) ? $var['after_value'] : '';
 		
-		$match = $before_value.$this->_filter($var['regex'], $this->_html).$after_value;
+		$match = $before_value.$this->_filter($var['regex'], $this->_html, 1, $name).$after_value;
 		$filename = $before_key.$k.$after_key;
 		$directory = isset($var['directory']) ? $var['directory'] : '';
 		$this->_output[$key][$filename] = $match;
@@ -345,15 +345,20 @@ class Copycat {
 	* @param int $i
 	* @return array
 	*/
-	protected function _filterAll($regex, $content, $i = 1) {
+	protected function _filterAll($regex, $content, $i = 1, $key = '') {
 		if (@preg_match_all($regex, $content, $matches) === false) {
 			return false;
 		}
 		$result = $matches[1];
-		if ($this->_callback) {
-			foreach ($this->_callback as $filter) {
+		if (isset($this->_callback['_all_'])) {
+			foreach ($this->_callback['_all_'] as $filter) {
 				$result = array_map($filter, $result);
 			}			
+		}
+		if ($key != '' && isset($this->_callback[$key])) {
+			foreach ($this->_callback[$key] as $filter) {
+				$result = array_map($filter, $result);
+			}
 		}
 		return $result;
 	}
@@ -366,13 +371,18 @@ class Copycat {
 	* @param int $i
 	* @return array
 	*/
-	protected function _filter($regex, $content, $i = 1) {
+	protected function _filter($regex, $content, $i = 1, $key = '') {
 		if (@preg_match($regex, $content, $match) == 1) {
 			$result = $match[$i];
-			if ($this->_callback) {
-				foreach ($this->_callback as $filter) {
+			if (isset($this->_callback['_all_'])) {
+				foreach ($this->_callback['_all_'] as $filter) {
 					$result = call_user_func($filter, $result);
-				}			
+				}
+			}
+			if ($key != '' && isset($this->_callback[$key])) {
+				foreach ($this->_callback[$key] as $filter) {
+					$result = call_user_func($filter, $result);
+				}
 			}
 			return $result;
 		}
