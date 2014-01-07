@@ -349,7 +349,7 @@ class Copycat {
 		if (@preg_match_all($regex, $content, $matches) === false) {
 			return false;
 		}
-		$result = $matches[1];
+		$result = isset($matches[$i]) ? $matches[$i] : $matches[0];
 		if (isset($this->_callback['_all_'])) {
 			foreach ($this->_callback['_all_'] as $filter) {
 				$result = array_map($filter, $result);
@@ -373,7 +373,7 @@ class Copycat {
 	*/
 	protected function _filter($regex, $content, $i = 1, $key = '') {
 		if (@preg_match($regex, $content, $match) == 1) {
-			$result = $match[$i];
+			$result = isset($match[$i]) ? $match[$i] : $match[0];
 			if (isset($this->_callback['_all_'])) {
 				foreach ($this->_callback['_all_'] as $filter) {
 					$result = call_user_func($filter, $result);
