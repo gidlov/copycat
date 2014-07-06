@@ -72,6 +72,9 @@ class Copycat {
 	* Initialize the object with some default settings.
 	*/
 	public function __construct() {
+		if (! function_exists('curl_version')) {
+			exit('You must enable PHP cURL to use "'.__CLASS__.'"!');
+		}
 		set_time_limit(0);
 		$this->_curl_options = array();
 		$this->_output = array();
@@ -92,7 +95,9 @@ class Copycat {
 	* Finalized.
 	*/
 	public function __destruct() {
-		curl_close($this->_curl);
+		if (isset($this->_curl)) {
+			curl_close($this->_curl);
+		}
 	}
 
 	/**
