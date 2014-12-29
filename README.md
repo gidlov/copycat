@@ -11,7 +11,7 @@ In the `require` key of `composer.json` file add the following:
 "gidlov/copycat": "dev-master"
 ```
 
-Run the Composer `update comand`.
+Run the Composer `update` command.
 
 Add to `providers` in `app/config/app.php`.
 
