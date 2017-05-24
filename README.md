@@ -3,7 +3,7 @@ Copycat - A PHP Scraping Class
 
 You may find more info on [gidlov.com/copycat][1]
 
-###For Laravel 4 Developers###
+### For Laravel 4 Developers
 
 In the `require` key of `composer.json` file add the following:
 
@@ -25,7 +25,7 @@ and to `aliases` in the same file.
 'Copycat' 		=> 'Gidlov\Copycat\Copycat',
 ```
 
-## Yet another scraping class ##
+## Yet another scraping class
 I didn’t do much research before I wrote this class, so there is probably something similar out there, and certainly some more decent solution. _A Python version of this class is under development_.
 
 But still, I needed a class that could pick out selected pieces from a web page, with regular expression, show or save it. I also needed to be able to save files and or pictures, and also specify or complete a current file name.
@@ -33,7 +33,7 @@ But still, I needed a class that could pick out selected pieces from a web page,
 It is also possible to use a search engine to look up an address to extract data from. Assuming you has entered an expression for that particular page.
 
 
-## Briefly ##
+## Briefly
 
  - Uses regular expression, match one or all.
  - Can download and save files with custom file names.
@@ -41,7 +41,7 @@ It is also possible to use a search engine to look up an address to extract data
  - Can use search engines to find out the right page.
  - Also possible to apply callback functions for all items.
 
-## How to use this class ##
+## How to use this class
 
 Include the class and initiate your object with some custom [cURL parameters][2], if you need/like.
 ```php
@@ -217,16 +217,16 @@ To apply functions on selected elements, replace `_all_` with your key value, li
 
 Note that it is fine to use **anonymous functions** too.
 
-##Drawbacks##
+## Drawbacks
 
 PHP itself is not suitable for long time-consuming operations, since the process is interrupted as soon as the user closes the web page, or when PHP's time limit is reached *(however `set_time_limit(0)` is utilized in the construct method so right there should not be a problem)*.
 
-##Requirements##
+## Requirements
 
  - PHP 5
  - cURL extension
 
-##License##
+## License
 
 Copycat is released under [LGPL][5].
 
