@@ -1,7 +1,11 @@
 Copycat - A PHP Scraping Class
 =====================
+[![Total Downloads][ico-downloads]][link-packagist] 
+[![Monthly Downloads][ico-m-downloads]][link-packagist] 
+[![Reference Status][ico-references]][link-references] 
+[![Software License][ico-license]](LICENSE) 
 
-You may find more info on [gidlov.com/copycat][1]
+You may find more info on [gidlov.com/copycat](https://gidlov.com/copycat)
 
 ### For Laravel 4 Developers
 
@@ -43,7 +47,7 @@ It is also possible to use a search engine to look up an address to extract data
 
 ## How to use this class
 
-Include the class and initiate your object with some custom [cURL parameters][2], if you need/like.
+Include the class and initiate your object with some custom [cURL parameters](http://php.net/manual/en/function.curl-setopt.php), if you need/like.
 ```php
 require_once('copycat.php');
 $cc = new Copycat;
@@ -55,9 +59,9 @@ $cc->setCURL(array(
 ));
 ```
 
-**I use [IMDb][3] as our target source in these examples.**
+**I use [IMDb](http://imdb.com/) as our target source in these examples.**
 
-Say we want to retrieve a particular film score, for simplicity, we happen to know the address of this very film, [Donnie Darko][4]. This is how the code could look like.
+Say we want to retrieve a particular film score, for simplicity, we happen to know the address of this very film, [Donnie Darko](http://www.imdb.com/title/tt0246578/). This is how the code could look like.
 
 ```php
 $cc->match(array(
@@ -228,12 +232,16 @@ PHP itself is not suitable for long time-consuming operations, since the process
 
 ## License
 
-Copycat is released under [LGPL][5].
+Copycat is released under [LGPL](http://www.gnu.org/licenses/lgpl-3.0-standalone.html).
 
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/bc4145a8dea081add9743f8ac44a2d51 "githalytics.com")](http://githalytics.com/gidlov/copycat)
+## Thanks
 
-  [1]: http://gidlov.com/copycat
-  [2]: http://php.net/manual/en/function.curl-setopt.php
-  [3]: http://imdb.com/
-  [4]: http://www.imdb.com/title/tt0246578/
-  [5]: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+If this library is useful for you, say thanks [buying me a coffee](https://www.paypal.me/gidlov) :coffee:!
+
+[ico-downloads]: https://poser.pugx.org/gidlov/copycat/downloads 
+[ico-m-downloads]: https://poser.pugx.org/gidlov/copycat/d/monthly 
+[ico-references]: https://www.versioneye.com/php/gidlov:copycat/reference_badge.svg?style=flat 
+[ico-license]: https://poser.pugx.org/gidlov/copycat/license 
+
+[link-packagist]: https://packagist.org/packages/gidlov/copycat
+[link-references]: https://www.versioneye.com/php/gidlov:copycat/references
