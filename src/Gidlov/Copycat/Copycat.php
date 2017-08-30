@@ -1,14 +1,15 @@
 <?php namespace Gidlov\Copycat;
+
 /**
 * A universal scraping tool that can be used for all kinds of data collection.
-* 
+*
 * You decide from where and what you want. All with regular expression.
 * Read more on Github.
-* 
+*
 * @author 	Klas Gidlöv
-* @link 		gidlov.com/code/copycat
+* @link 		gidlov.com/en/code/copycat
 * @license	LGPL 3.0
-* @version 	0.014
+* @version 	1.0.5
 */
 class Copycat {
 
@@ -27,6 +28,13 @@ class Copycat {
 	protected $_curl_options;
 
 	/**
+	* List of http-post. Use post().
+	*
+	* @param array $_post
+	*/
+	protected $_post;
+
+	/**
 	* List of URLs. Use URLs().
 	*
 	* @param array $_urls
@@ -35,35 +43,35 @@ class Copycat {
 
 	/**
 	* List of URLs. Use fillURLs().
-	* 
+	*
 	* @param array $_urls
 	*/
 	protected $_fill_urls;
 
 	/**
 	* Regular expression syntax. Use match() or matchAll().
-	* 
+	*
 	* @param array $_regex
 	*/
 	protected $_regex;
 
 	/**
 	* The current file, usually a HTML file, for matching expressions.
-	* 
+	*
 	* @param array $_html
 	*/
 	protected $_html;
 
 	/**
 	* All matching results.
-	* 
+	*
 	* @param array $_output
 	*/
 	protected $_output;
 
 	/**
 	* Callback functions to apply to the result.
-	* 
+	*
 	* @param array $_callback
 	*/
 	protected $_callback;
@@ -86,8 +94,6 @@ class Copycat {
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_CONNECTTIMEOUT => 5,
 			CURLOPT_USERAGENT => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)',
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_COOKIESESSION => true
 		));
 	}
 
@@ -113,8 +119,20 @@ class Copycat {
 	}
 
 	/**
+	* Send a HTTP POST request.
+	*
+	* @return array
+	*/
+	public function post($post) {
+		if (isset($post)) {
+			$this->_post = $post;
+		}
+		return $this;
+	}
+
+	/**
 	* The list of address to scan.
-	* 
+	*
 	* @param string/array $urls
 	* @return object
 	*/
@@ -134,7 +152,7 @@ class Copycat {
 	*   	'imdb+stay',
 	*    )
 	*  )
-	* 
+	*
 	*	There is a possibility to add any matching addresses by adding 'to' => 'matches'​​,
 	* in the array.
 	*
@@ -151,7 +169,7 @@ class Copycat {
 	*
 	*	Set A multidimensional array where the key represents a predefined CURL-constant
 	* and where the value is the value of the constant. This method is optional.
-	*	
+	*
 	* @param array const
 	* @return object
 	*/
@@ -159,7 +177,7 @@ class Copycat {
 		$this->_curl_options = $const + $this->_curl_options;
 		$this->_curl = curl_init();
 		curl_setopt_array($this->_curl, $this->_curl_options);
-		curl_exec($this->_curl);
+		//curl_exec($this->_curl);
 		return $this;
 	}
 
@@ -181,8 +199,8 @@ class Copycat {
 	* the key 'title'. It will then add .jpg and save the file in a folder called items.
 	*
 	* Other keys to use are: before_value, after_value, before_key, after_key. Fairly
-	* self-explanatory name. before_value may be useful if the page uses relative addresses. 
-	*	
+	* self-explanatory name. before_value may be useful if the page uses relative addresses.
+	*
 	* @param array regex
 	* @return object
 	*/
@@ -193,7 +211,7 @@ class Copycat {
 
 	/**
 	* Same as match() but utilizes preg_match_all().
-	*	
+	*
 	* @param array regex
 	* @return object
 	*/
@@ -204,7 +222,7 @@ class Copycat {
 
 	/**
 	* Callback functions to apply to all results.
-	*	
+	*
 	* @param array function
 	* @return object
 	*/
@@ -214,7 +232,7 @@ class Copycat {
 	}
 
 	/**
-	* Saves the result of a webpage in $_html
+	* Saves the result of a webpage in $_html.
 	*
 	* @param string url
 	*/
@@ -223,9 +241,54 @@ class Copycat {
 	}
 
 	/**
+	* Send HTTP POST request.
+	*/
+	protected function _sendPost() {
+		if (isset($this->_curl_options[CURLOPT_HTTPHEADER])) {
+			$old_httpheader = $this->_curl_options[CURLOPT_HTTPHEADER];
+		}
+		foreach ($this->_post as $url => $data) {
+			$this->_setHTML($url);
+			$postfields = array();
+			foreach ($data as $name => $value) {
+				if (is_array($value)) {
+					$result = $this->_filter($value[0], $this->_html, 1, $name);
+					$postfields[] = $name.'='.$result;
+				} else {
+					$postfields[] = $name.'='.$value;
+				}
+			}
+			$postfields = implode('&', $postfields);
+			$httpheader = array(
+				'X-CSRF-Token: '.$result,
+				'Content-Length: '.strlen($postfields),
+				'Connection: Keep-Alive',
+				'Keep-Alive: 300',
+			);
+			if (isset($old_httpheader)) {
+				$httpheader = array_merge($httpheader, $old_httpheader);
+			}
+			$this->setCURL(array(
+				CURLOPT_POST => 1,
+				CURLOPT_POSTFIELDS => $postfields,
+				CURLOPT_HTTPHEADER => $httpheader,
+			));
+			$this->_setHTML($url);
+		}
+		unset($this->_curl_options[CURLOPT_POST]);
+		unset($this->_curl_options[CURLOPT_POSTFIELDS]);
+		if (isset($old_httpheader)) {
+			$this->_curl_options[CURLOPT_HTTPHEADER] = $old_httpheader;
+		}
+	}
+
+	/**
 	* Starts the process to load pages and saves the matching results.
 	*/
 	protected function _getURLs() {
+		if ($this->_post) {
+			$this->_sendPost();
+		}
 		if ($this->_fill_urls) {
 			$this->_getFillURLs();
 		}
@@ -241,7 +304,7 @@ class Copycat {
 
 	/**
 	* Find and save the results of the current page.
-	* 
+	*
 	* @param string $key
 	*/
 	protected function _getMatch($key = 0) {
@@ -257,7 +320,7 @@ class Copycat {
 
 	/**
 	* Same as _getMatch().
-	* 
+	*
 	* @param string $key
 	*/
 	protected function _getMatchAll($key = 0) {
@@ -273,7 +336,7 @@ class Copycat {
 
 	/**
 	* Modifies the file name, key-value values ​​for files.
-	* 
+	*
 	* @param string $name
 	* @param string $var
 	* @param string $key
@@ -290,7 +353,7 @@ class Copycat {
 		$after_key = isset($var['after_key']) ? $var['after_key'] : '';
 		$before_value = isset($var['before_value']) ? $var['before_value'] : '';
 		$after_value = isset($var['after_value']) ? $var['after_value'] : '';
-		
+
 		$match = $before_value.$this->_filter($var['regex'], $this->_html, 1, $name).$after_value;
 		$filename = $before_key.$k.$after_key;
 		$directory = isset($var['directory']) ? $var['directory'] : '';
@@ -300,7 +363,7 @@ class Copycat {
 
 	/**
 	* Save the file.
-	* 
+	*
 	* @param string $url
 	* @param string $filename
 	* @param string $directory
@@ -332,7 +395,7 @@ class Copycat {
 
 	/**
 	* Load the data from the URL.
-	* 
+	*
 	* @param string $url
 	* @return string
 	*/
@@ -344,7 +407,7 @@ class Copycat {
 
 	/**
 	* Apply the regular expression to the content and return all matches.
-	* 
+	*
 	* @param string $regex
 	* @param string $content
 	* @param int $i
@@ -358,7 +421,7 @@ class Copycat {
 		if (isset($this->_callback['_all_'])) {
 			foreach ($this->_callback['_all_'] as $filter) {
 				$result = array_map($filter, $result);
-			}			
+			}
 		}
 		if ($key != '' && isset($this->_callback[$key])) {
 			foreach ($this->_callback[$key] as $filter) {
@@ -370,7 +433,7 @@ class Copycat {
 
 	/**
 	* Apply the regular expression to the content and return first match.
-	* 
+	*
 	* @param string $regex
 	* @param string $content
 	* @param int $i
@@ -393,10 +456,10 @@ class Copycat {
 		}
 		return false;
 	}
-	
+
 	/**
 	* Check if a URL is valid.
-	* 
+	*
 	* @param string $url
 	* @return bool
 	*/
