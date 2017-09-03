@@ -1,5 +1,6 @@
 Copycat - A PHP Scraping Class
 =====================
+[![Latest Stable Version](https://poser.pugx.org/gidlov/copycat/v/stable.svg)](https://github.com/gidlov/copycat/releases)
 [![Total Downloads][ico-downloads]][link-packagist]
 [![Monthly Downloads][ico-m-downloads]][link-packagist]
 [![Reference Status][ico-references]][link-references]
@@ -243,7 +244,7 @@ PHP itself is not suitable for long time-consuming operations, since the process
 
 ## Requirements
 
- - PHP 5
+ - PHP 5.3
  - cURL extension
 
 ## License
